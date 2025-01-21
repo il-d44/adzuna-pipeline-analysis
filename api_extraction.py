@@ -22,22 +22,23 @@ DB_NAME = os.getenv("DB_NAME")  # Retrieve the database name
 app_id = os.getenv("ADZUNA_APP_ID")
 api_key = os.getenv("ADZUNA_API_KEY")
 
-# Define the base URL for the Adzuna API
-url = 'https://api.adzuna.com/v1/api/jobs/gb/search/1'
 
 TABLE_NAME = 'student.data_engineer_jobs'
 
 
-# Sends request to the API using specified search terms and returns extracted data as a dictionary
-def extract_adzuna_data():
-    # Define the parameters (customize as needed)
+# Sends request to the API using specified search terms and returns extracted data as a dictionary, page_number is used to extract older pages from the API
+def extract_adzuna_data(page_number, max_days_old = None):
+    # Define the base URL for the Adzuna API
+    url = f'https://api.adzuna.com/v1/api/jobs/gb/search/{page_number}'
+    # Define the parameters 
     params = {
         'app_id': app_id,  # Your app ID
         'app_key': api_key,  # Your API key
         'results_per_page': '50',  # Number of results to be displayed
         'what': 'Data Engineer',  # Search term
     }
-
+    if max_days_old:
+            params['max_days_old'] = max_days_old
     # Make the GET request
     response = requests.get(url, params=params)
 
@@ -70,7 +71,7 @@ def extract_adzuna_data():
 
         return extracted_data  # List of dictionaries containing job details
     else:
-        # Handle the error
+        # Handle errors
         print(f"Request failed with status code {response.status_code}")
         return None
 
@@ -148,12 +149,3 @@ def insert_jobs_to_db(data):
             cursor.close()
         if conn:
             conn.close()
-
-
-
-create_table()
-
-data = extract_adzuna_data()
-
-insert_jobs_to_db(data)
-
