@@ -3,7 +3,8 @@
 
  ## Setup
 - Please install the packages from requirements.txt
-- Please run onlyonce... and then regularly
+- Please execute run_extraction *once* to populate the database
+- Please execute run_update every 4 hours to update database
 
 ## Project Plan 
 ### Goals
