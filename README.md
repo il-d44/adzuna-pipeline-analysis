@@ -3,7 +3,10 @@
 
  ## Extraction Script Instructions
 - Please install the packages from requirements.txt
+- Please use supplied .env file for credentials
 - Please execute run_extraction **once** to populate the database
+
+## Chron Details
 - Please execute run_update every 4 hours to update database
 
 ## Project Plan 
