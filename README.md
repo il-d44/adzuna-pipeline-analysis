@@ -3,7 +3,7 @@
 
  ## Extraction Script Instructions
 - Please install the packages from requirements.txt
-- Please use supplied .env file for credentials
+- Please insert supplied .env file into root of project
 - Please execute run_extraction **once** to populate the database
 
 ## Chron Details
