@@ -1,7 +1,7 @@
  ## Outline
  This project contains a python script for extracting data on Data Engineer jobs from Adzuma's (website that lists jobs) Api. The data is then added to a Postgres database for analysis.
 
- ## Setup
+ ## Extraction Script Instructions
 - Please install the packages from requirements.txt
 - Please execute run_extraction **once** to populate the database
 - Please execute run_update every 4 hours to update database
