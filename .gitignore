@@ -1,0 +1,8 @@
+# Ignore virtual environment
+.venv/
+
+# Ignore sensitive data in .evn
+.env/
+
+# Extra files used in creation
+Seperate_component_files/
