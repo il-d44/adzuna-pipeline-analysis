@@ -9,7 +9,9 @@ from collections import Counter
 from nltk.tokenize import word_tokenize
 import nltk
 from nltk.data import find
-
+from matplotlib.colors import LinearSegmentedColormap
+from PIL import Image
+import numpy as np
 
 # Helper function to check if NLTK resource is already downloaded in either 'tokenizers' or 'corpora'
 def ensure_resource(resource_name):
@@ -171,6 +173,8 @@ def multi_count_word_category(processed_words, word_list):
 
 
 # Function to create word cloud using word count frequencies
+# Accepts multi_count_word_category, single_count_word_category and top_words_counter functions in argument to produce cloud
+
 def word_cloud_creator(image_path, processed_words, word_list = None, count_function = multi_count_word_category):
     # Check if the image file already exists
     if not os.path.exists(image_path):
