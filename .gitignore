@@ -2,7 +2,7 @@
 .venv/
 
 # Ignore sensitive data in .evn
-.env/
+.env
 
 # Extra files used in creation
 Seperate_component_files/
