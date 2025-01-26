@@ -5,12 +5,13 @@ import os
 import re
 from nltk.corpus import stopwords
 from wordcloud import WordCloud
-import matplotlib.pyplot as plt
 from collections import Counter
 from nltk.tokenize import word_tokenize
 import nltk
 from nltk.data import find
-import ast
+from matplotlib.colors import LinearSegmentedColormap
+from PIL import Image
+import numpy as np
 
 # Helper function to check if NLTK resource is already downloaded in either 'tokenizers' or 'corpora'
 def ensure_resource(resource_name):
@@ -73,7 +74,6 @@ def load_descriptions(db_url):
     except Exception as e:
         raise Exception(f"An error occurred while executing the query: {e}")
     
-print(load_descriptions(db_url))
 
 
 # Preprocess the text
@@ -93,26 +93,12 @@ def process_data_frame(data_frame):
     return words
 
 
-# Execute function to load descriptions from database into dataframe
-data_frame = load_descriptions(db_url)
-# Execute function to process descriptions
-processed_words = process_data_frame(data_frame)
+# Function for counting most common words from list of processed words
+def top_words_counter(processed_words, number_of_words = 10): 
+    word_counts = Counter(processed_words)
+    most_common_words = word_counts.most_common(number_of_words)
+    return dict(most_common_words)
 
-# Count top 10 words from description
-word_counts = Counter(processed_words)
-most_common_words = word_counts.most_common(10)  # Top 10 keywords
-print("Most Common Words:", most_common_words)
-
-# Create a word cloud
-wordcloud = WordCloud(
-    width=800, 
-    height=400, 
-    background_color='grey', 
-    colormap='viridis',
-    prefer_horizontal=1.0,
-    font_path="C:/Users/isaac/AppData/Local/Microsoft/Windows/Fonts/JetBrainsMono-Bold.ttf"
-).generate(' '.join(processed_words))
-wordcloud.to_file("top_10_words_grey.png")
 
 # AI generated list of top Data Engineering technologies
 technologies = [
@@ -186,57 +172,52 @@ def multi_count_word_category(processed_words, word_list):
     return mapped_word_count
 
 
-
-
-
-
-
-#  Define the file path for the saved WordCloud image
-wordcloud_image_path = "non_tech_skills_word_cloud_grey_all.png"
-
-
-# Function to create word cloud using word count frequencies from single_count_word_category
-def single_word_cloud_creator(wordcloud_image_path, processed_words, word_list):
+# Function to create word cloud using word count frequencies
+def word_cloud_creator(image_path, processed_words, word_list = None, count_function = multi_count_word_category):
     # Check if the image file already exists
-    if not os.path.exists(wordcloud_image_path):
+    if not os.path.exists(image_path):
 
+        # Custom colors for the colormap
+        colors = ["#339783","#339733","#339723"]  # Replace with your preferred colors
+        custom_cmap = LinearSegmentedColormap.from_list("custom_cmap", colors)
+
+        # Create WordCloud object
         wordcloud = WordCloud(
             width=800,
             height=400,
-            background_color=(169, 169, 169),  # Set background color in RGB
-            colormap="inferno",
+            background_color=None,  # Transparent background for word cloud
+            mode="RGBA",  # Supports transparency
+            colormap=custom_cmap,  # Use your custom colormap
             prefer_horizontal=1.0,
             font_path="C:/Users/isaac/AppData/Local/Microsoft/Windows/Fonts/JetBrainsMono-Bold.ttf"
         )
 
-        # Generate WordCloud from your data using single_count_word_category function
-        wordcloud.generate_from_frequencies(single_count_word_category(processed_words, word_list))
+        # Generate WordCloud from word frequencies
+        wordcloud.generate_from_frequencies(count_function(processed_words, word_list))
 
-        # Save the generated WordCloud image
-        wordcloud.to_file(wordcloud_image_path)
+        # Convert word cloud to RGBA image (this will be a transparent word cloud image)
+        wordcloud_image = Image.fromarray(wordcloud.to_array())
+
+        # Create an RGBA background (semi-transparent)
+        background = Image.new("RGBA", (800, 400), (30, 30, 30, 200))  # Dark gray with alpha transparency
+
+        # Ensure that the background is the correct size and mode
+        wordcloud_image = wordcloud_image.convert("RGBA")
+        
+        # Composite the word cloud image over the RGBA background
+        combined_image = Image.alpha_composite(background, wordcloud_image)
+
+        # Save the final image
+        combined_image.save(image_path)
+
+        print(f"Word cloud saved at {image_path}")
 
 
-# Function to create word cloud using word count frequencies from multi_count_word_category
-def multi_word_cloud_creator(wordcloud_image_path, processed_words, word_list):
-    # Check if the image file already exists
-    if not os.path.exists(wordcloud_image_path):
+# Execute function to load descriptions from database into dataframe
+data_frame = load_descriptions(db_url)
+# Execute function to process descriptions
+processed_words = process_data_frame(data_frame)
 
-        wordcloud = WordCloud(
-            width=800,
-            height=400,
-            background_color=(169, 169, 169),  # Set background color in RGB
-            colormap="inferno",
-            prefer_horizontal=1.0,
-            font_path="C:/Users/isaac/AppData/Local/Microsoft/Windows/Fonts/JetBrainsMono-Bold.ttf"
-        )
+word_cloud_creator("test2.png", processed_words, count_function= top_words_counter)
 
-        # Generate WordCloud from your data using multi_count_word_category function
-        wordcloud.generate_from_frequencies(multi_count_word_category(processed_words, word_list))
-
-        # Save the generated WordCloud image
-        wordcloud.to_file(wordcloud_image_path)
-
-single_word_cloud_creator("single_count_tech_skills_word_cloud_grey_all.png", processed_words, technologies)
-
-df = load_descriptions(db_url)
-print(df)
+# print(top_words_counter(processed_words))
