@@ -616,7 +616,7 @@ with col1:
 
 # Display the second image in the second column
 with col2:
-    st.image("tech_skills_word_cloud_grey_all.png", width=350, caption="Second attempt at word cloud using multi_count method")
+    st.image("tech_skills_word_cloud_grey_all.png", width=35   0, caption="Second attempt at word cloud using multi_count method")
 
 
 
