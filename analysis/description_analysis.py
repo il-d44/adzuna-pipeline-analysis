@@ -215,24 +215,6 @@ def word_cloud_creator(image_path, processed_words, word_list = None, count_func
         print(f"Word cloud saved at {image_path}")
 
 
-<<<<<<< HEAD
-
-##################################################################################################
-
-=======
-# multi_word_cloud_creator("non_tech_skills_word_cloud_grey_all.png", processed_words, non_technical_skills)
-
-# single_word_cloud_creator("single_count_tech_skills_word_cloud_grey_all.png", processed_words, technologies)
-
-# wordcloud = WordCloud(
-#     width=800, 
-#     height=400, 
-#     background_color=None,  # Transparent background
-#     mode="RGBA",  # Supports transparency
-#     colormap=custom_cmap  # Use your custom colormap
-# ).generate("your text here")
->>>>>>> f71fb2a (Cleaning up functions)
-
 # Execute function to load descriptions from database into dataframe
 data_frame = load_descriptions(db_url)
 # Execute function to process descriptions
