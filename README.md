@@ -1,5 +1,8 @@
  ## Outline
- This project contains a python script for extracting data on Data Engineer jobs from Adzuna's (website that lists jobs) Api. The data is then added to a Postgres database for analysis.
+
+This project focuses on extracting, transforming, and analysing job listing data using the Adzuna API. The ETL pipeline is designed to extract raw data on job postings, structure it into a clean, organised format, and load it into a remote PostgreSQL database for efficient storage and querying. To ensure the data remains up to date, the pipeline is automated to update the database every 4 hours with new job listing data.
+
+To gain insights from the job descriptions, I applied Natural Language Processing (NLP) techniques, identifying key patterns, popular skills, and technologies in job requirements. The findings are presented through a custom-built Streamlit application, which visually narrates the analysis and the end-to-end ETL process.
 
  ## Extraction Script Instructions
 - Please create `.venv` file
@@ -10,38 +13,45 @@
 ## Chron Details
 - Please execute `run_update` every 4 hours to update database
 
-## Project Plan 
-### Goals
-1. Successfully extract and regularly update a database with new job listings via Adzuna API.
-2. Once the database is populated, ensure data is clean and transformed.
-3. Analyse the job description field and aggregate data on most desired technologies.
-4. Analyse the impact of location on salary
-5. Create streamlit app to display findings
+## Goals
+1. **As a data engineer,** I want to extract and regularly update a database with new job listings via the Adzuna API so that I can maintain an up-to-date dataset for analysis.
+2. **As a data engineer,** I want to clean and transform the data to ensure it is accurate, consistent, and ready for meaningful insights.
+3. **As a data analyst,** I want to analyze job descriptions to identify the most in-demand technologies so that I can understand trends in the job market.
+4. **As a data analyst,** I want to examine the relationship between location and salary so that I can uncover how location impacts earnings.
+5. **As a presenter,** I want to create a Streamlit app to showcase the project findings in an engaging and user-friendly way so that stakeholders can easily explore the insights.
 
-### Methods
-1. **Successfully extract and regularly update a database with new job listings via Adzuna API.**
-- Create function to request from API and store data in dictionary
-- Wite function to connect to pagila database and create table
-- Write function to insert data from the dictionary into created table.
 
-  
-2. **Once the database is populated, ensure data is clean and transformed.**
-- Remove duplicates, handle missing values, and standardise formats.
-- Validate the cleaned data to ensure consistency and accuracy.
-**
-3. **Analyse the job description field and aggregate data on most desired technologies.**
-- Extract key technology-related terms from job descriptions using natural language processing (NLP).
-- Group and count the occurrence of technologies to identify trends.
-- Visualize the results to highlight the most in-demand technologies.
+## Methods 
 
-4. **Analyse the impact of location on salary**
-- Conduct statistical analysis to identify correlation patterns between location and salary.
-- Present findings with visualizations to compare salary ranges across locations.
+1. ### Extract and Update Database:
 
-5. **Create streamlit app to display findings**
-- Create markdown to tell story of the project
-- Display visualisations on the page
-- Create markdown to tell story of analysis
+- **As a data engineer,** I want to create a function to request job data from the Adzuna API and store it in a dictionary so that I can retrieve structured data.
+- **As a data engineer,** I want to connect to the Pagila database and set up the necessary tables to store job listings so that the data is properly organized.
+- **As a data engineer,** I want to write a function to insert job data from the dictionary into the database so that the database is consistently updated.
+
+
+2. ### Clean and Transform Data:
+
+- **As a data engineer,** I want to remove duplicates, handle missing values, and standardize formats so that the data is clean and ready for analysis.
+- **As a data engineer,** I want to validate the cleaned data to ensure it is accurate and consistent so that analysis results are trustworthy.
+
+3. ### Analyse Job Descriptions:
+
+- **As a data analyst,** I want to extract key technology-related terms from job descriptions using NLP so that I can identify relevant trends.
+- **As a data analyst,** I want to group and count the occurrences of technologies to uncover which ones are most in demand.
+- **As data analyst,** I want to visualize the results to clearly communicate the top technologies in the job market.
+
+4. ### Impact of Location on Salary:
+
+- **As a data analyst,** I want to perform statistical analysis to identify patterns between location and salary so that I can understand geographic differences in earnings.
+- **As a data analyst,** I want to present the findings with clear visualizations to compare salary ranges across different locations.
+
+
+5. ### Streamlit Presentation:
+
+- **As a data analyst**, I want to write markdown content that tells the story of the project so that users understand its context and purpose.
+- **As a data analyst,** I want to display the visualisations clearly.
+- **As a data analyst**, I want to create clear explanations of the findings in markdown so that users can easily follow the analysis journey.
 
 
 
