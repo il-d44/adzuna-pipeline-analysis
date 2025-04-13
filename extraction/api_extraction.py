@@ -32,8 +32,8 @@ def extract_adzuna_data(page_number, max_days_old = None):
     url = f'https://api.adzuna.com/v1/api/jobs/gb/search/{page_number}'
     # Define the parameters 
     params = {
-        'app_id': app_id,  # Your app ID
-        'app_key': api_key,  # Your API key
+        'app_id': app_id,  
+        'app_key': api_key,  
         'results_per_page': '50',  # Number of results to be displayed
         'what': 'Data Engineer',  # Search term
     }
