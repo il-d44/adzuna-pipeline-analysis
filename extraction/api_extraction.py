@@ -1,5 +1,4 @@
 import psycopg2
-from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 import requests
 from dotenv import load_dotenv
 import os
@@ -22,58 +21,109 @@ DB_NAME = os.getenv("DB_NAME")  # Retrieve the database name
 app_id = os.getenv("ADZUNA_APP_ID")
 api_key = os.getenv("ADZUNA_API_KEY")
 
-
+# Defining name for database table where job listings will be stored
 TABLE_NAME = 'student.data_engineer_jobs'
 
 
-# Sends request to the API using specified search terms and returns extracted data as a dictionary, page_number is used to extract older pages from the API
-def extract_adzuna_data(page_number, max_days_old = None):
-    # Define the base URL for the Adzuna API
+def fetch_adzuna_jobs(page_number, max_days_old=None):
+    """
+    Makes API request to Adzuna with chosen parameters and returns response, handling errors that may occur
+
+    Parameters:
+    -----------
+    page_number : int
+        Integer number specifying the Azduna listing page to return
+    
+    max_days_old=None : int
+        Optional parameter to return the most recent jobs by age in days
+
+    Returns:
+    --------
+    list
+        A list of dictionaries with each item representing a job listing
+
+    """
+    
     url = f'https://api.adzuna.com/v1/api/jobs/gb/search/{page_number}'
-    # Define the parameters 
     params = {
-        'app_id': app_id,  # Your app ID
-        'app_key': api_key,  # Your API key
-        'results_per_page': '50',  # Number of results to be displayed
-        'what': 'Data Engineer',  # Search term
+        'app_id': app_id,
+        'app_key': api_key,
+        'results_per_page': '50',
+        'what': 'Data Engineer',
     }
     if max_days_old:
-            params['max_days_old'] = max_days_old
-    # Make the GET request
-    response = requests.get(url, params=params)
+        params['max_days_old'] = max_days_old
 
-    # Check if the request was successful
-    if response.status_code == 200:
-        data = response.json()  # Parse the JSON response
+        # Try block to error handle API request
+    try:
+        response = requests.get(url, params=params)
+        response.raise_for_status()  # Raise an error for non-200 response
 
-        # Extract and structure the data
-        extracted_data = []
-        for job in data.get('results', []):  # 'results' is where the job listings are stored
-            
-            # Cleaning up messy fields so they can be inputted into database
-            company_name = job.get('company_name', '').strip()  
-            location_name = job.get('location', {}).get('display_name', '').strip() # Location data is nested in dictionary under display name
-            description = job.get('description', '').strip()  
-            redirect_url = job.get('redirect_url', '').strip()  
+        # If status code is 200, return the results
+        return response.json().get('results', [])
+    
+    except requests.exceptions.RequestException as e:
+        # Exception class from results library to catch network-related errors 
+        print(f"Network error: {e}")
+    
+    except ValueError:
+        # Catches errors with incorrect response, e.g. HTML instead of JSON
+        print("Error: Unable to parse response from API.")
+    
+    except Exception as e:
+        # Catches any other unexpected errors
+        print(f"An unexpected error occurred: {e}")
 
-            # Ensure the job details are correctly formatted
-            job_details = {
-                'id': job.get('id'),
-                'title': job.get('title'),
-                'description': description,
-                'company': company_name,
-                'location': location_name,
-                'salary_min': job.get('salary_min', None),
-                'salary_max': job.get('salary_max', None),
-                'redirect_url': redirect_url,
-            }
-            extracted_data.append(job_details)
+    return None  # Return None in case of failure
 
-        return extracted_data  # List of dictionaries containing job details
-    else:
-        # Handle errors
-        print(f"Request failed with status code {response.status_code}")
-        return None
+def clean_job_data(job):
+    """
+    Cleaning function, takes a single job dictionary and extracts relevant fields to create clean dictionary
+
+    Parameters:
+    -----------
+    job : dict
+        A dictionary containing job listing data.
+
+    Returns:
+    --------
+    dict
+        A cleaned dictionary with keys: 'id', 'title', 'description', 'company', 
+        'location', 'salary_min', 'salary_max', 'redirect_url'.
+    """
+    return {
+        'id': job.get('id'),
+        'title': job.get('title'),
+        'description': job.get('description', '').strip(),
+        'company': job.get('company_name', '').strip(),
+        'location': job.get('location', {}).get('display_name', '').strip(), # Location data is nested in dictionary under display name
+        'salary_min': job.get('salary_min'),
+        'salary_max': job.get('salary_max'),
+        'redirect_url': job.get('redirect_url', '').strip(),
+    }
+
+def extract_adzuna_data(page_number, max_days_old=None):
+    """
+    Returns cleaned list of dictionaries for each job listing.
+
+    Parameters:
+    -----------
+    page_number : int
+        Integer number specifying the Azduna listing page to return
+    
+    max_days_old=None : int
+        Optional parameter to return the most recent jobs by age in days
+
+    Returns:
+    --------
+    list
+        A list of dictionaries with each item a clean dictionary for each job listing. 
+        Within the clean dictionary, each key represents a data field: 'id', 'location,' description' etc...
+
+    """
+    job_results = fetch_adzuna_jobs(page_number, max_days_old)
+    return [clean_job_data(job) for job in job_results] if job_results else []
+
 
     
 
@@ -111,7 +161,7 @@ def create_table():
         if conn:
             conn.close()
 
-def insert_jobs_to_db(data):
+def insert_jobs_to_db(clean_data):
     """Insert job data into the jobs table."""
     try:
         conn = psycopg2.connect(dbname=DB_NAME, **DB_CONFIG)
@@ -126,7 +176,7 @@ def insert_jobs_to_db(data):
         """
         
         # Insert each job into the database
-        for job in data:
+        for job in clean_data:
             cursor.execute(insert_query, (
                 job["id"],
                 job["title"],
@@ -149,6 +199,3 @@ def insert_jobs_to_db(data):
             cursor.close()
         if conn:
             conn.close()
-
-
-print(extract_adzuna_data(1))

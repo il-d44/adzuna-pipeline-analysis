@@ -28,7 +28,7 @@ To gain insights from the job descriptions, I applied Natural Language Processin
 - **As a data engineer,** I want to create a function to request job data from the Adzuna API and store it in a dictionary so that I can retrieve structured data.
 - **As a data engineer,** I want to connect to the Pagila database and set up the necessary tables to store job listings so that the data is properly organized.
 - **As a data engineer,** I want to write a function to insert job data from the dictionary into the database so that the database is consistently updated.
-
+   
 
 2. ### Clean and Transform Data:
 

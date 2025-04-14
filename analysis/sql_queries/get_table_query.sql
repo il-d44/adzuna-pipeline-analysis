@@ -1,0 +1,12 @@
+SELECT 
+    id,
+    title,
+    description,
+    company,
+    location,
+    salary_min,
+    salary_max,
+    redirect_url,
+    created
+FROM
+    student.data_engineer_jobs

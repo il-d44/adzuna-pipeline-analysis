@@ -8,3 +8,4 @@ wordcloud
 matplotlib
 streamlit
 pillow
+geopy
