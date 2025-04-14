@@ -4,7 +4,9 @@ import pandas as pd
 import pydeck as pdk
 import os
 import sys
-import plotly.graph_objects as go
+import plotly.graph_objects as go 
+from wordcloud import WordCloud
+from PIL import ImageFont
 
 # Append path to recognise analysis module, as python won't recognise without
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
@@ -74,6 +76,7 @@ if page == "Home":
         
         _All data is sourced from **Adzuna**, a leading job search engine._
         """,
+
         unsafe_allow_html=True
     )
 
@@ -99,6 +102,10 @@ if page == "Home":
         unsafe_allow_html=True
     )
 
+
+    # Example: DejaVuSans is bundled with most Linux installs
+    font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+    wordcloud = WordCloud(font_path=font_path).generate("hello world")
 
 
 elif page == "Skills Trends":
