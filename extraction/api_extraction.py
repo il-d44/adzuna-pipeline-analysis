@@ -81,7 +81,7 @@ def clean_job_data(job):
     Cleaning function, takes a single job dictionary and extracts relevant fields to create clean dictionary
 
     Parameters:
-    -----------
+    ----------
     job : dict
         A dictionary containing job listing data.
 

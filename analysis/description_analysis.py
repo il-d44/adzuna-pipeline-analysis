@@ -135,10 +135,7 @@ def generate_wordcloud_image(processed_words, word_list=None, count_function=mul
     colors = ["#339783", "#339733", "#339723"]
     custom_cmap = LinearSegmentedColormap.from_list("custom_cmap", colors)
 
-    font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
-
-    if not os.path.exists(font_path):
-        raise FileNotFoundError(f"Font file not found at {font_path}. Please check the path or add the font.")
+    font_path = os.path.join(os.path.dirname(__file__), "app", "fonts", "dejavu-sans-bold.ttf")
 
     wordcloud = WordCloud(
         width=800,

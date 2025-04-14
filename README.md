@@ -51,7 +51,7 @@ To gain insights from the job descriptions, I applied Natural Language Processin
 
 - **As a data analyst**, I want to write markdown content that tells the story of the project so that users understand its context and purpose.
 - **As a data analyst,** I want to display the visualisations clearly.
-- **As a data analyst**, I want to create clear explanations of the findings in markdown so that users can easily follow the analysis journey.
+- **As a data analyst**, I want to create clear explanations of the findings in markdown so that users can easily follow analysis journey.
 
 
 

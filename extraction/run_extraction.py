@@ -8,7 +8,7 @@ def main():
     Steps:
     1. Creates a database table if it doesn't already exist.
     2. Fetches job data from the Adzuna API across multiple pages.
-    3. Inserts the fetched data into the database if data is available; otherwise, prints a message indicating no data.
+    3. Inserts the fetched data into database if data is available; otherwise, prints a message indicating no data.
     """
 
     # Create the table in the database if it doesn't exist  
