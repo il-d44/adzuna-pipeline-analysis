@@ -9,6 +9,7 @@ import nltk
 from nltk.data import find
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
+import os
 
 
 # Helper function to check if NLTK resource is already downloaded in either 'tokenizers' or 'corpora'
@@ -47,7 +48,7 @@ def process_data_frame(data_frame, column_name='description'):
     Returns:
         list: A list of cleaned words.
     """
-    # Error Handling - ensure column exists in dataframe
+    # Error Handling - ensure column exists in the dataframe
     if column_name not in data_frame.columns:
         raise ValueError(f"Column '{column_name}' not found in DataFrame")
 
@@ -127,9 +128,18 @@ def multi_count_word_category(processed_words, word_list):
 # Function to create word cloud using word count frequencies
 # Accepts multi_count_word_category and top_words_counter functions in argument to produce cloud
 
+from wordcloud import WordCloud
+from matplotlib.colors import LinearSegmentedColormap
+import os
+
 def generate_wordcloud_image(processed_words, word_list=None, count_function=multi_count_word_category):
     colors = ["#339783", "#339733", "#339723"]
     custom_cmap = LinearSegmentedColormap.from_list("custom_cmap", colors)
+
+    font_path = "app/fonts/JetBrainsMono-Bold.ttf"
+
+    if not os.path.exists(font_path):
+        raise FileNotFoundError(f"Font file not found at {font_path}. Please check the path or add the font.")
 
     wordcloud = WordCloud(
         width=800,
@@ -137,9 +147,8 @@ def generate_wordcloud_image(processed_words, word_list=None, count_function=mul
         background_color='black',
         colormap=custom_cmap,
         prefer_horizontal=1.0,
-        font_path="C:/Users/isaac/AppData/Local/Microsoft/Windows/Fonts/JetBrainsMono-Bold.ttf"
+        font_path=font_path
     )
 
     wordcloud.generate_from_frequencies(count_function(processed_words, word_list))
     return wordcloud
-

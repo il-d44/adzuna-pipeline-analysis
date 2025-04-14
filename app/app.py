@@ -108,6 +108,12 @@ elif page == "Skills Trends":
     - What technical experience is most sought after right now? 
     - Which professional skills are most valued?
     """)
+
+    st.write("Font file exists:", os.path.exists("app/fonts/JetBrainsMono-Bold.ttf"))
+
+    with open("app/fonts/JetBrainsMono-Bold.ttf", "rb") as f:
+        st.write("Can open font file successfully!")
+
     wordcloud_tabs = st.tabs(["Technologies", "Professional Skills"])
 
     # --------------------------
@@ -351,9 +357,9 @@ elif page == "Salary & Location Insights":
                 Hover over a location to see details including the **location name**, **average salary**, and **number of job listings**.
                 """)
 
-        # --------------------------
+        # -------------------------
         # Bar chart for Salaries by Location
-        # --------------------------
+        # -------------------------
 
         st.subheader("Average Min Salaries by Location Filtered by Job Count")
         # Filter locations based on slider 

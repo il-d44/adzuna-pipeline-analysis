@@ -46,10 +46,10 @@ def fetch_adzuna_jobs(page_number, max_days_old=None):
     
     url = f'https://api.adzuna.com/v1/api/jobs/gb/search/{page_number}'
     params = {
-        'app_id': app_id,
-        'app_key': api_key,
-        'results_per_page': '50',
-        'what': 'Data Engineer',
+        'app_id': app_id,  # Your app ID
+        'app_key': api_key,  # Your API key
+        'results_per_page': '50',  # Number of results to be displayed
+        'what': 'Data Engineer',  # Search term
     }
     if max_days_old:
         params['max_days_old'] = max_days_old
