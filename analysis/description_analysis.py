@@ -148,3 +148,10 @@ def generate_wordcloud_image(processed_words, word_list=None, count_function=mul
 
     wordcloud.generate_from_frequencies(count_function(processed_words, word_list))
     return wordcloud
+
+def test_wordcloud_image(processed_words, word_list=None, count_function=multi_count_word_category):
+    
+    wordcloud = WordCloud(width=800, height=400, background_color="black") 
+
+    wordcloud.generate_from_frequencies(count_function(processed_words, word_list))
+    return wordcloud

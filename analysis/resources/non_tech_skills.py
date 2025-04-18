@@ -1,3 +1,4 @@
+# list of top professional skills
 non_tech_skills = [
     "Clear Communication", "Collaboration", "Listening Skills", "Writing", "Presentation", "Negotiation",
     "Feedback", "Critical Thinking", "Troubleshooting", "Root Cause", "Creativity", "Attention to Detail",

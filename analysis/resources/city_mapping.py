@@ -1,3 +1,4 @@
+# Mapping dictionary for cleaning location data
 city_map = {
     "london": "London",
     "birmingham": "Birmingham",

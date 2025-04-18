@@ -195,7 +195,7 @@ elif page == "Skills Trends":
         This word cloud highlights the professional skills that are most valued by employers.
         Practice these skills and set yourself apart in a competitive job market!
         """)
-        skills_word_cloud = da.generate_wordcloud_image(processed_descriptions, non_tech_skills)
+        skills_word_cloud = da.test_wordcloud_image(processed_descriptions, non_tech_skills)
         st.image(skills_word_cloud.to_array(), use_container_width=True)  # Display skills word cloud
 
         

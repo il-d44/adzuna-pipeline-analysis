@@ -12,7 +12,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from analysis.resources.city_mapping import city_map
 from analysis.resources.config import DB_CONFIG
 
-# Retrieved variables from .env
+# Retrieved variables from .env file
 RETRIEVED_DB_NAME = os.getenv("DB_NAME")  # Retrieve the database name
 RETRIEVED_API_KEY = os.getenv("GEOCODING_API_KEY")
 

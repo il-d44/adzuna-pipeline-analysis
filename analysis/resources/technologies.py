@@ -1,4 +1,4 @@
-# AI generated list of top Data Engineering technologies
+# AI generated list of top Data Engineering technologies.
 tech = [
     "Excel", "Python", "Java", "Scala", "SQL", "Hadoop", "Spark", "Kafka", "Flink", "Hive",
     "AWS", "Azure", "Google Cloud", "Snowflake", "Databricks", "PostgreSQL", "MySQL",
