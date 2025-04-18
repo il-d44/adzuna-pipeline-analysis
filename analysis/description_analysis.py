@@ -127,10 +127,6 @@ def multi_count_word_category(processed_words, word_list):
 
 # Function to create word cloud using word count frequencies
 # Accepts multi_count_word_category and top_words_counter functions in argument to produce cloud
-
-
-
-
 def generate_wordcloud_image(processed_words, word_list=None, count_function=multi_count_word_category):
     colors = ["#339783", "#339733", "#339723"]
     custom_cmap = LinearSegmentedColormap.from_list("custom_cmap", colors)
@@ -149,9 +145,19 @@ def generate_wordcloud_image(processed_words, word_list=None, count_function=mul
     wordcloud.generate_from_frequencies(count_function(processed_words, word_list))
     return wordcloud
 
+
+# test function to get 
 def test_wordcloud_image(processed_words, word_list=None, count_function=multi_count_word_category):
-    
-    wordcloud = WordCloud(width=800, height=400, background_color="black") 
+    colors = ["#339783", "#339733", "#339723"]
+    custom_cmap = LinearSegmentedColormap.from_list("custom_cmap", colors)   
+
+    wordcloud = WordCloud(
+        width=800, 
+        height=400, 
+        background_color="black"
+        colormap=custom_cmap,
+        prefer_horizontal=1.0
+    ) 
 
     wordcloud.generate_from_frequencies(count_function(processed_words, word_list))
     return wordcloud

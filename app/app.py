@@ -112,11 +112,6 @@ elif page == "Skills Trends":
     - Which professional skills are most valued?
     """)
 
-    st.write("Font file exists:", os.path.exists("app/fonts/JetBrainsMono-Bold.ttf"))
-
-    with open("app/fonts/JetBrainsMono-Bold.ttf", "rb") as f:
-        st.write("Can open font file successfully!")
-
     wordcloud_tabs = st.tabs(["Technologies", "Professional Skills"])
 
     # --------------------------
