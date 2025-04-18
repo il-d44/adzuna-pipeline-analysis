@@ -146,7 +146,7 @@ def generate_wordcloud_image(processed_words, word_list=None, count_function=mul
     return wordcloud
 
 
-# test function to get 
+# test function to see if wordcoud works on remote streamlit server without font error
 def test_wordcloud_image(processed_words, word_list=None, count_function=multi_count_word_category):
     colors = ["#339783", "#339733", "#339723"]
     custom_cmap = LinearSegmentedColormap.from_list("custom_cmap", colors)   
@@ -161,3 +161,32 @@ def test_wordcloud_image(processed_words, word_list=None, count_function=multi_c
 
     wordcloud.generate_from_frequencies(count_function(processed_words, word_list))
     return wordcloud
+
+
+# create backup word cloud image 
+def save_wordcloud_image(processed_words, word_list=None, count_function=multi_count_word_category, output_path="wordcloud.png"):
+    colors = ["#339783", "#339733", "#339723"]
+    custom_cmap = LinearSegmentedColormap.from_list("custom_cmap", colors)
+
+    font_path = "app/fonts/JetBrainsMono-Bold.ttf"
+
+    wordcloud = WordCloud(
+        width=800,
+        height=400,
+        background_color='black',
+        colormap=custom_cmap,
+        prefer_horizontal=1.0,
+        font_path=font_path
+    )
+
+    frequencies = count_function(processed_words, word_list)
+    wordcloud.generate_from_frequencies(frequencies)
+
+    # Save the image
+    wordcloud.to_file(output_path)
+
+    return wordcloud
+
+
+
+
