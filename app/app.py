@@ -103,10 +103,6 @@ if page == "Home":
     )
 
 
-    # Example: DejaVuSans is bundled with most Linux installs
-    font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
-    wordcloud = WordCloud(font_path=font_path).generate("hello world")
-
 
 elif page == "Skills Trends":
     st.title("Skills Trends 📈")
@@ -138,7 +134,7 @@ elif page == "Skills Trends":
             This word cloud shows the most frequently mentioned **technologies** aggregated across job descriptions.  
         """)
 
-        tech_word_cloud = da.generate_wordcloud_image(processed_descriptions, tech)
+        tech_word_cloud = da.test_wordcloud_image(processed_descriptions, tech)
         st.image(tech_word_cloud.to_array(), use_container_width=True)  # Display tech word cloud
 
         st.markdown("""
