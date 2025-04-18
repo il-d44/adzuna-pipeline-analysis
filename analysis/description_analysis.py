@@ -152,12 +152,12 @@ def test_wordcloud_image(processed_words, word_list=None, count_function=multi_c
     custom_cmap = LinearSegmentedColormap.from_list("custom_cmap", colors)   
 
     wordcloud = WordCloud(
-        width=800, 
-        height=400, 
-        background_color="black"
+        width=800,
+        height=400,
+        background_color='black',
         colormap=custom_cmap,
-        prefer_horizontal=1.0
-    ) 
+        prefer_horizontal=1.0,
+    )
 
     wordcloud.generate_from_frequencies(count_function(processed_words, word_list))
     return wordcloud
