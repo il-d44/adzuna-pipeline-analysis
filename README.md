@@ -1,59 +1,78 @@
- ## Outline
+# 📊 Adzuna Job Listings ETL + Dashboard  
 
-This project focuses on extracting, transforming, and analysing job listing data using the Adzuna API. The ETL pipeline is designed to extract raw data on job postings, structure it into a clean, organised format, and load it into a remote PostgreSQL database for efficient storage and querying. To ensure the data remains up to date, the pipeline is automated to update the database every 4 hours with new job listing data.
+*A data engineering and analytics project using Python, Adzuna API, PostgreSQL, and Streamlit.*  
+🔗 **Live Dashboard**: [View on Streamlit](https://adzuna-pipeline-analysis-lddaeuynvgvzldvkt2jmiv.streamlit.app/)
 
-To gain insights from the job descriptions, I applied Natural Language Processing (NLP) techniques, identifying key patterns, popular skills, and technologies in job requirements. The findings are presented through a custom-built Streamlit application, which visually narrates the analysis and the end-to-end ETL process.
+---
 
- ## Extraction Script Instructions
-- Please create `.venv` file
-- Please install the packages from `requirements.txt`
-- Please insert supplied `.env` file into root of project
-- Please execute `run_extraction` **once** to populate the database
+## 🖼️ Screenshots
 
-## Chron Details
-- Please execute `run_update` every 4 hours to update database
+| Dashboard Overview | Technology Mentions |
+|--------------------|---------------------|
+| ![Dashboard](images/dashboard_overview.png) | ![Tech Chart](images/tech_mentions.png) |
 
-## Goals
-1. **As a data engineer,** I want to extract and regularly update a database with new job listings via the Adzuna API so that I can maintain an up-to-date dataset for analysis.
-2. **As a data engineer,** I want to clean and transform the data to ensure it is accurate, consistent, and ready for meaningful insights.
-3. **As a data analyst,** I want to analyze job descriptions to identify the most in-demand technologies so that I can understand trends in the job market.
-4. **As a data analyst,** I want to examine the relationship between location and salary so that I can uncover how location impacts earnings.
-5. **As a presenter,** I want to create a Streamlit app to showcase the project findings in an engaging and user-friendly way so that stakeholders can easily explore the insights.
+| Salary Map |
+|------------|
+| ![Map](images/salary_map.png) |
 
+*Note: Add your actual image files in an `/images` folder or host them externally.*
 
-## Methods 
+---
 
-1. ### Extract and Update Database:
+## 🚀 Project Overview
 
-- **As a data engineer,** I want to create a function to request job data from the Adzuna API and store it in a dictionary so that I can retrieve structured data.
-- **As a data engineer,** I want to connect to the Pagila database and set up the necessary tables to store job listings so that the data is properly organized.
-- **As a data engineer,** I want to write a function to insert job data from the dictionary into the database so that the database is consistently updated.
-   
+This project extracts, transforms, and analyses job listing data from the Adzuna API to uncover insights about the UK tech job market. It focuses on identifying in-demand technologies across regions and tracking salary trends.
 
-2. ### Clean and Transform Data:
+It demonstrates end-to-end data engineering: working with external APIs, storing and transforming data in a remote PostgreSQL database, enriching data via geocoding, applying NLP techniques, and presenting insights in a user-friendly dashboard.
 
-- **As a data engineer,** I want to remove duplicates, handle missing values, and standardize formats so that the data is clean and ready for analysis.
-- **As a data engineer,** I want to validate the cleaned data to ensure it is accurate and consistent so that analysis results are trustworthy.
+---
 
-3. ### Analyse Job Descriptions:
+## 🧩 Features
 
-- **As a data analyst,** I want to extract key technology-related terms from job descriptions using NLP so that I can identify relevant trends.
-- **As a data analyst,** I want to group and count the occurrences of technologies to uncover which ones are most in demand.
-- **As data analyst,** I want to visualize the results to clearly communicate the top technologies in the job market.
+- **ETL Pipeline**  
+  Extracts from the Adzuna Job Search API and loads data into a PostgreSQL database.
 
-4. ### Impact of Location on Salary:
+- **Data Cleaning & Standardisation**  
+  Cleans and standardises job listing fields in Pandas.  
+  Resolves inconsistencies in location data before updating the database.
 
-- **As a data analyst,** I want to perform statistical analysis to identify patterns between location and salary so that I can understand geographic differences in earnings.
-- **As a data analyst,** I want to present the findings with clear visualizations to compare salary ranges across different locations.
+- **NLP Analysis**  
+  Extracts popular technologies and skills from job descriptions and compares them against a defined list of in-demand tech keywords.
 
+- **Geocoding Enrichment**  
+  Uses a geocoding API to convert cleaned location names into geographic coordinates, enriching the dataset for mapping and regional analysis.
 
-5. ### Streamlit Presentation:
+- **SQL Integration**  
+  Uses `psycopg2` to connect to a remote PostgreSQL database.  
+  Executes raw SQL in Python to manage inserts, updates, and queries.
 
-- **As a data analyst**, I want to write markdown content that tells the story of the project so that users understand its context and purpose.
-- **As a data analyst,** I want to display the visualisations clearly.
-- **As a data analyst**, I want to create clear explanations of the findings in markdown so that users can easily follow analysis journey.
+- **Streamlit Dashboard**  
+  Presents findings and visualisations in an interactive, user-friendly web app.
 
+---
 
+## 🛠️ Tech Stack
 
+- **Languages**: Python  
+- **Libraries**: Pandas, Requests, Regex (`re`), NLTK  
+- **Database**: PostgreSQL (remote), accessed via `psycopg2`  
+- **APIs**: Adzuna Job Search API, OpenCage Geocoder  
+- **Visualisation**: Streamlit, Plotly  
+- **Data Storage**: Remote PostgreSQL
 
+---
 
+## 🏗️ Architecture
+
+```text
+[Adzuna API]
+     ↓
+[ETL Script (Python)]
+     ↓
+[Pandas Cleaning + Location Standardisation]
+     ↓
+[Geocoding API Enrichment]
+     ↓
+[Remote PostgreSQL Database (via psycopg2 + raw SQL)]
+     ↓
+[Streamlit Dashboard]
