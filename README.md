@@ -16,7 +16,7 @@
 
 | Salary Map | Technology Mentions |
 |------------|---------------------|
-| ![Map](app\dashboard_images\salariesmap.png) |  ![Tech Chart](app\dashboard_images\techwordcloud.png)
+| ![Map](app/dashboard_images/salariesmap.png) |  ![Tech Chart](app/dashboard_images/techwordcloud.png)
 
 
 
