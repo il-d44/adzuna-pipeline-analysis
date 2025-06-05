@@ -1,4 +1,4 @@
-# 📊 Adzuna Job Listings ETL + Dashboard  
+# Adzuna Job Listings ETL + Dashboard  
 
 <h3 align="center">
   A data engineering and analytics project using Python, Adzuna API, PostgreSQL, and Streamlit.
@@ -8,7 +8,7 @@
 
 
 
-## 🖼️ Screenshots
+## Screenshots
 
 | Dashboard Overview | 
 |--------------------|
@@ -20,14 +20,14 @@
 
 
 
-## 🚀 Project Overview
+## Project Overview
 
 - This project extracts, transforms, and analyses job listing data from the Adzuna API to uncover insights about the UK tech job market. It focuses on identifying in-demand technologies across regions and tracking salary trends.
 
 - It demonstrates end-to-end data engineering: working with external APIs, storing and transforming data in a remote PostgreSQL database, enriching data via geocoding, applying NLP techniques, and presenting insights in a user-friendly dashboard.
 
 
-## 🧩 Features
+## Features
 
 - **ETL Pipeline**  
   Extracts from the Adzuna Job Search API and loads data into a PostgreSQL database.
@@ -50,7 +50,7 @@
   Presents findings and visualisations in an interactive, user-friendly web app.
 
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Languages**: Python  
 - **Libraries**: Pandas, Requests, Regex (`re`), NLTK  
@@ -59,7 +59,7 @@
 - **Visualisation**: Streamlit, Plotly  
 - **Data Storage**: Remote PostgreSQL
 
-## 🏗️ Architecture
+## Architecture
 
 ```text
 [Adzuna API]
@@ -76,7 +76,7 @@
 ```
 
 
-## 💡 Future Improvements
+## Future Improvements
 - Fully automate the pipeline using orchestration tools like Apache Airflow to schedule regular updates.
 
 - Add unit and integration tests to validate the functionality of the ETL pipeline, database interactions, and API responses.
